@@ -238,60 +238,54 @@ const isOffline = useIsOffline();
 </script>
 
 <template>
-  <li class="fr-p-2w criterium-container">
-    <div class="fr-mb-2w criterium-main-section">
-      <span class="fr-text--bold criterium-number">
-        {{ topicNumber }}.{{ criterium.number }}
-      </span>
-      <div
-        class="fr-text--bold criterium-title"
-        v-html="marked.parseInline(criterium.title)"
-      />
-    </div>
-
-    <!-- STATUS -->
-    <div
-      :class="[
-        'fr-ml-6w criterium-radios-container',
-        {
-          'fr-mb-2w': result.status !== CriteriumResultStatus.NOT_TESTED
-        }
-      ]"
-    >
-      <RadioGroup
-        :disabled="isOffline"
-        :model-value="result.status"
-        :label="`Statut du critère ${topicNumber}.${criterium.number}`"
-        hide-label
-        :default-value="CriteriumResultStatus.NOT_TESTED"
-        :items="statuses"
-        @update:model-value="updateResultStatus"
-      />
-
-      <div class="fr-toggle fr-toggle--label-left">
-        <input
-          :id="`applicable-all-pages-${uniqueId}`"
-          :checked="result.transverse"
-          type="checkbox"
-          class="fr-toggle__input"
-          :disabled="
-            result.status === CriteriumResultStatus.NOT_TESTED || isOffline
-          "
-          @input="updateTransverseStatus"
+  <li class="fr-px-2w criterium-container">
+    <div class="criterium-row">
+      <div class="fr-my-2v criterium-main-section">
+        <span class="fr-text--bold criterium-number">
+          {{ topicNumber }}.{{ criterium.number }}
+        </span>
+        <div
+          class="fr-text--bold criterium-title"
+          v-html="marked.parseInline(criterium.title)"
         />
-        <label
-          class="fr-toggle__label"
-          :for="`applicable-all-pages-${uniqueId}`"
-        >
-          <span class="sr-only">
-            Appliquer le statut {{ formatStatus(result.status) }} pour le
-            critère {{ topicNumber }}.{{ criterium.number }}
-          </span>
-          &nbsp;Sur toutes les pages
-        </label>
+      </div>
+
+      <!-- STATUS -->
+      <div :class="['fr-pl-6w criterium-radios-container']">
+        <RadioGroup
+          :disabled="isOffline"
+          :model-value="result.status"
+          :label="`Statut du critère ${topicNumber}.${criterium.number}`"
+          hide-label
+          :default-value="CriteriumResultStatus.NOT_TESTED"
+          :items="statuses"
+          @update:model-value="updateResultStatus"
+        />
+
+        <div class="fr-toggle fr-toggle--label-left">
+          <input
+            :id="`applicable-all-pages-${uniqueId}`"
+            :checked="result.transverse"
+            type="checkbox"
+            class="fr-toggle__input"
+            :disabled="
+              result.status === CriteriumResultStatus.NOT_TESTED || isOffline
+            "
+            @input="updateTransverseStatus"
+          />
+          <label
+            class="fr-toggle__label"
+            :for="`applicable-all-pages-${uniqueId}`"
+          >
+            <span class="sr-only">
+              Appliquer le statut {{ formatStatus(result.status) }} pour le
+              critère {{ topicNumber }}.{{ criterium.number }}
+            </span>
+            &nbsp;Partout
+          </label>
+        </div>
       </div>
     </div>
-
     <!-- FIXME: left/right arrow bug -->
     <!-- COMMENT / DESCRIPTION -->
     <CriteriumCompliantAccordion
@@ -349,6 +343,11 @@ const isOffline = useIsOffline();
   content: none;
 }
 
+.criterium-row {
+  display: flex;
+  align-items: center;
+}
+
 .criterium-main-section {
   display: grid;
   grid-template-columns: 2.5rem 1fr;
@@ -358,12 +357,15 @@ const isOffline = useIsOffline();
 .criterium-number,
 .criterium-title {
   color: var(--text-action-high-grey);
+  max-width: 80ch;
 }
 
 .criterium-radios-container {
+  max-width: 32rem;
+  margin-left: auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   flex-wrap: wrap;
   gap: 0 1rem;
 }
