@@ -40,17 +40,17 @@ const statuses: Array<{
   color?: RadioColor;
 }> = [
   {
-    label: formatStatus(CriteriumResultStatus.COMPLIANT),
+    label: formatStatus(CriteriumResultStatus.COMPLIANT, true),
     value: CriteriumResultStatus.COMPLIANT,
     color: "green"
   },
   {
-    label: formatStatus(CriteriumResultStatus.NOT_COMPLIANT),
+    label: formatStatus(CriteriumResultStatus.NOT_COMPLIANT, true),
     value: CriteriumResultStatus.NOT_COMPLIANT,
     color: "red"
   },
   {
-    label: formatStatus(CriteriumResultStatus.NOT_APPLICABLE),
+    label: formatStatus(CriteriumResultStatus.NOT_APPLICABLE, true),
     value: CriteriumResultStatus.NOT_APPLICABLE,
     color: "grey"
   }

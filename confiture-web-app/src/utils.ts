@@ -69,11 +69,23 @@ const FORMATTED_STATUS = {
   [CriteriumResultStatus.NOT_APPLICABLE]: "Non applicable"
 };
 
+const SHORT_FORMATTED_STATUS = {
+  [CriteriumResultStatus.NOT_TESTED]: "NT",
+  [CriteriumResultStatus.COMPLIANT]: "C",
+  [CriteriumResultStatus.NOT_COMPLIANT]: "NC",
+  [CriteriumResultStatus.NOT_APPLICABLE]: "NA"
+};
+
 /**
  * Format a criterion result status type string into French.
  */
-export function formatStatus(status: CriteriumResultStatus): string {
-  return FORMATTED_STATUS[status];
+export function formatStatus(
+  status: CriteriumResultStatus,
+  shortVersion = false
+): string {
+  return shortVersion
+    ? SHORT_FORMATTED_STATUS[status]
+    : FORMATTED_STATUS[status];
 }
 
 const CRITERIA_COUNT = {
