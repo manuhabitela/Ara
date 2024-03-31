@@ -297,6 +297,7 @@ const router = createRouter({
       beforeEnter: saveCurrentEditionStep,
       meta: {
         name: "Mon audit",
+        layout: "app",
         breadcrumbLinks: () => [
           getHomeBreadcrumbLink(),
           {

@@ -13,8 +13,11 @@ import { useAccountStore } from "./store/account";
 const route = useRoute();
 
 const breadcrumbLinks = ref<BreadcrumbLink[]>([]);
+const layout = ref("page");
 
 watch(route, () => {
+  layout.value = (route?.meta?.layout as string) || "page";
+
   if (!route.meta || !route.meta.breadcrumbLinks) breadcrumbLinks.value = [];
   if (typeof route.meta.breadcrumbLinks === "function") {
     breadcrumbLinks.value = route.meta.breadcrumbLinks();
@@ -98,7 +101,11 @@ onMounted(() => {
   <main
     id="main"
     role="main"
-    :class="['fr-container fr-mb-12w', { 'fr-mt-9w': !breadcrumbLinks.length }]"
+    :class="{
+      'fr-mt-9w': !breadcrumbLinks.length,
+      'fr-container fr-mb-12w': layout === 'page',
+      'fr-px-4w': layout === 'app'
+    }"
   >
     <Breadcrumb v-if="breadcrumbLinks.length" :links="breadcrumbLinks" />
     <RouterView />
