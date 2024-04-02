@@ -18,7 +18,9 @@ import CriteriumNotCompliantAccordion from "./CriteriumNotCompliantAccordion.vue
 import CriteriumTestsAccordion from "./CriteriumTestsAccordion.vue";
 import { useResultsStore, useFiltersStore, useAuditStore } from "../../store";
 import { useNotifications } from "../../composables/useNotifications";
-import RadioGroup, { RadioColor } from "../ui/RadioGroup.vue";
+import MultipleStateButton, {
+  ButtonColor
+} from "../ui/MultipleStateButton.vue";
 import { captureWithPayloads, formatStatus } from "../../utils";
 import { useIsOffline } from "../../composables/useIsOffline";
 
@@ -37,7 +39,7 @@ const props = defineProps<{
 const statuses: Array<{
   label: string;
   value: CriteriumResultStatus;
-  color?: RadioColor;
+  color?: ButtonColor;
 }> = [
   {
     label: formatStatus(CriteriumResultStatus.COMPLIANT, true),
@@ -251,8 +253,8 @@ const isOffline = useIsOffline();
       </div>
 
       <!-- STATUS -->
-      <div :class="['fr-pl-6w criterium-radios-container']">
-        <RadioGroup
+      <div :class="['fr-pl-4w fr-my-2v criterium-status-container']">
+        <MultipleStateButton
           :disabled="isOffline"
           :model-value="result.status"
           :label="`Statut du critère ${topicNumber}.${criterium.number}`"
