@@ -47,7 +47,12 @@ function onCriteriaKey(event: KeyboardEvent) {
   if (!target) {
     return;
   }
-  if (event.key !== "ArrowUp" && event.key !== "ArrowDown") {
+  if (
+    event.key !== "ArrowUp" &&
+    event.key !== "ArrowDown" &&
+    event.key !== "j" &&
+    event.key !== "k"
+  ) {
     return;
   }
   if (
@@ -61,7 +66,7 @@ function onCriteriaKey(event: KeyboardEvent) {
     return;
   }
   const destinationParent =
-    event.key === "ArrowUp"
+    event.key === "ArrowUp" || event.key === "k"
       ? parent.previousElementSibling
       : parent.nextElementSibling;
   if (!destinationParent) {
