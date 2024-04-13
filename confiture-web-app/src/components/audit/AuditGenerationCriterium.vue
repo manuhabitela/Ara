@@ -15,7 +15,6 @@ import {
 import CriteriumCompliantAccordion from "./CriteriumCompliantAccordion.vue";
 import CriteriumNotApplicableAccordion from "./CriteriumNotApplicableAccordion.vue";
 import CriteriumNotCompliantAccordion from "./CriteriumNotCompliantAccordion.vue";
-import CriteriumTestsAccordion from "./CriteriumTestsAccordion.vue";
 import { useResultsStore, useFiltersStore, useAuditStore } from "../../store";
 import { useNotifications } from "../../composables/useNotifications";
 import MultipleStateButton, {
@@ -73,6 +72,22 @@ const showFileSizeError = ref(false);
 const showFileFormatError = ref(false);
 
 const showComments = ref(true);
+
+function isTestOpened(topicNumber: number, criterium: any) {
+  return (
+    auditStore.shownTests?.topicNumber === topicNumber &&
+    auditStore.shownTests?.criterium.number === criterium.number
+  );
+}
+
+function toggleTests(topicNumber: number, criterium: any) {
+  if (isTestOpened(topicNumber, criterium)) {
+    auditStore.hideTests();
+  } else {
+    auditStore.showTests(topicNumber, criterium);
+  }
+}
+
 function handleUploadExample(file: File) {
   showFileSizeError.value = false;
   showFileFormatError.value = false;
@@ -244,9 +259,19 @@ const isOffline = useIsOffline();
   <li class="fr-px-2w criterium-container">
     <div class="criterium-row">
       <div class="fr-my-2v criterium-main-section">
-        <span class="fr-text--bold criterium-number">
+        <button
+          type="button"
+          :class="[
+            'criterium-number fr-btn fr-btn--sm',
+            { 'fr-btn--primary ': isTestOpened(topicNumber, criterium) },
+            { 'fr-btn--tertiary ': !isTestOpened(topicNumber, criterium) }
+          ]"
+          title="Afficher la méthodologie de tests"
+          :aria-label="`Critère {{ topicNumber }}.{{ criterium.number }} - Afficher la méthodologie de tests`"
+          @click="toggleTests(topicNumber, criterium)"
+        >
           {{ topicNumber }}.{{ criterium.number }}
-        </span>
+        </button>
         <div
           class="fr-text--bold criterium-title"
           v-html="marked.parseInline(criterium.title)"

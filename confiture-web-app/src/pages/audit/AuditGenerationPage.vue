@@ -5,6 +5,7 @@ import { onBeforeRouteLeave, useRoute } from "vue-router";
 
 import AraTabs from "../../components/audit/AraTabs.vue";
 import AuditGenerationFilters from "../../components/audit/AuditGenerationFilters.vue";
+import CriteriumTestsPanel from "../../components/audit/CriteriumTestsPanel.vue";
 import AuditGenerationHeader from "../../components/audit/AuditGenerationHeader.vue";
 import AuditGenerationPageCriteria from "../../components/audit/AuditGenerationPageCriteria.vue";
 import PageMeta from "../../components/PageMeta";
@@ -129,10 +130,10 @@ onBeforeRouteLeave(() => {
   auditStore.showAuditEmailAlert = false;
 });
 
-const showFilters = ref(true);
+const showLeftPanel = ref(true);
 
-function toggleFilters(value: boolean) {
-  showFilters.value = value;
+function toggleLeftPanel(value: boolean) {
+  showLeftPanel.value = value;
 }
 
 const filterStore = useFiltersStore();
@@ -147,6 +148,15 @@ watch(
   (curr, prev) => {
     if (curr && !prev) {
       auditStore.currentPageId = auditStore.currentAudit!.pages[0].id;
+    }
+  }
+);
+
+watch(
+  () => auditStore.hasTests,
+  (curr) => {
+    if (curr && !showLeftPanel.value) {
+      showLeftPanel.value = true;
     }
   }
 );
@@ -227,21 +237,32 @@ const accountStore = useAccountStore();
     <div class="fr-grid-row columns">
       <div
         :class="[
-          `fr-col-12 fr-col-md-${showFilters ? '3' : '1'}`,
-          { 'fr-px-0': showFilters }
+          `fr-col-12 fr-col-md-${showLeftPanel ? '3' : '1'}`,
+          { 'fr-px-0': showLeftPanel }
         ]"
       >
         <div
-          :class="['filters-wrapper', 'fr-pb-6w', { 'fr-pr-3v': showFilters }]"
+          :class="[
+            'filters-wrapper',
+            'fr-pb-6w',
+            { 'fr-pr-3v': showLeftPanel }
+          ]"
           role="search"
         >
+          <CriteriumTestsPanel
+            v-if="auditStore.hasTests"
+            :topic-number="auditStore.shownTests.topicNumber"
+            :criterium="auditStore.shownTests.criterium"
+            @close="auditStore.hideTests()"
+          />
           <AuditGenerationFilters
+            v-if="!auditStore.hasTests"
             :topics="topics"
-            @toggle-filters="toggleFilters"
+            @toggle-filters="toggleLeftPanel"
           />
         </div>
       </div>
-      <div :class="`fr-col-12 fr-col-md-${showFilters ? '9' : '11'}`">
+      <div :class="`fr-col-12 fr-col-md-${showLeftPanel ? '9' : '11'}`">
         <AraTabs :tabs="tabsData" @change="updateCurrentPageId">
           <template #panel="{ data }">
             <AuditGenerationPageCriteria

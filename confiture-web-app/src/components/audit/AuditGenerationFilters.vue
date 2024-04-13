@@ -5,6 +5,7 @@ import { ref } from "vue";
 import { useFiltersStore, useResultsStore } from "../../store";
 import { pluralize } from "../../utils";
 import { CriteriumResultStatus } from "../../types";
+import PanelHeader from "../ui/PanelHeader.vue";
 
 defineProps<{
   topics: { title: string; number: number; value: number }[];
@@ -98,17 +99,12 @@ const notApplicableCount = computed(
     <span class="sr-only">Afficher la colonne des filtres</span>
   </button>
   <template v-else>
-    <div class="heading-wrapper">
-      <h2 class="fr-h4 fr-mb-0">Filtres</h2>
-      <button
-        ref="hideFiltersRef"
-        type="button"
-        class="fr-btn fr-btn--sm fr-btn--tertiary fr-icon-arrow-left-s-line-double toggle-column-button"
-        @click="hideFilters"
-      >
-        <span class="sr-only">Cacher la colonne des filtres</span>
-      </button>
-    </div>
+    <PanelHeader
+      title="Filtres"
+      button-icon="fr-icon-arrow-left-s-line-double"
+      button-label="Cacher la colonne des filtres"
+      @button-click="hideFilters"
+    />
     <button
       v-if="
         filterStore.search ||
@@ -280,18 +276,6 @@ const notApplicableCount = computed(
 </template>
 
 <style scoped>
-.heading-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-}
-
-.toggle-column-button:focus-visible {
-  outline: 2px solid var(--dsfr-outline);
-  outline-offset: -2px;
-}
-
 .evaluated-criteria-filter {
   border-top: 1px solid var(--border-default-grey);
   border-bottom: 1px solid var(--border-default-grey);

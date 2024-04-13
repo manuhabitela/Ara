@@ -16,6 +16,10 @@ interface AuditStoreState {
   currentAuditId: string | null;
   entities: Record<string, Audit>;
   listing: AccountAudit[];
+  shownTests: {
+    topicNumber: number;
+    criterium: any;
+  } | null;
 }
 
 export const useAuditStore = defineStore("audit", {
@@ -26,7 +30,8 @@ export const useAuditStore = defineStore("audit", {
 
     currentAuditId: null,
     entities: {},
-    listing: []
+    listing: [],
+    shownTests: null
   }),
   actions: {
     async createAudit(data: CreateAuditRequestData): Promise<Audit> {
@@ -163,6 +168,17 @@ export const useAuditStore = defineStore("audit", {
         .json()) as AccountAudit[];
 
       this.listing = audits;
+    },
+
+    showTests(topicNumber: number, criterium: any) {
+      this.shownTests = {
+        topicNumber,
+        criterium
+      };
+    },
+
+    hideTests() {
+      this.shownTests = null;
     }
   },
   getters: {
@@ -171,6 +187,9 @@ export const useAuditStore = defineStore("audit", {
         return null;
       }
       return state.entities[state.currentAuditId];
+    },
+    hasTests(state) {
+      return !!state.shownTests?.topicNumber && !!state.shownTests?.criterium;
     }
   }
 });
