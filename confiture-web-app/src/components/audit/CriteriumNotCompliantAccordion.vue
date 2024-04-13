@@ -3,7 +3,7 @@ import { computed, ref } from "vue";
 import { useIsOffline } from "../../composables/useIsOffline";
 import { CriterionResultUserImpact, ExampleImage } from "../../types";
 import { formatBytes, formatUserImpact } from "../../utils";
-import LazyAccordion from "./LazyAccordion.vue";
+import CriteriumSection from "./CriteriumSection.vue";
 import MarkdownHelpButton from "./MarkdownHelpButton.vue";
 import { RadioColor } from "../ui/Radio.vue";
 import RadioGroup from "../ui/RadioGroup.vue";
@@ -79,10 +79,7 @@ const isOffline = useIsOffline();
 </script>
 
 <template>
-  <LazyAccordion
-    title="Description et recommandation"
-    disclose-color="var(--background-default-grey)"
-  >
+  <CriteriumSection>
     <!-- COMMENT -->
     <div class="fr-input-group fr-mb-1w">
       <label
@@ -241,7 +238,7 @@ const isOffline = useIsOffline();
         </label>
       </div>
     </div>
-  </LazyAccordion>
+  </CriteriumSection>
 </template>
 
 <style scoped>

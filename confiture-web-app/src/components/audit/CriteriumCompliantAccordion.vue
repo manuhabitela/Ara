@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useIsOffline } from "../../composables/useIsOffline";
-import LazyAccordion from "./LazyAccordion.vue";
+import CriteriumSection from "./CriteriumSection.vue";
 import MarkdownHelpButton from "./MarkdownHelpButton.vue";
 
 defineProps<{
@@ -16,10 +16,7 @@ const isOffline = useIsOffline();
 </script>
 
 <template>
-  <LazyAccordion
-    disclose-color="var(--background-default-grey)"
-    title="Commentaire"
-  >
+  <CriteriumSection>
     <!-- COMMENT -->
     <div class="fr-input-group fr-mb-1w">
       <label class="fr-label sr-only" :for="`criterum-comment-field-${id}`">
@@ -50,5 +47,5 @@ const isOffline = useIsOffline();
       </label>
       <input :id="`file-upload-${id}`" class="fr-upload" type="file" />
     </div> -->
-  </LazyAccordion>
+  </CriteriumSection>
 </template>

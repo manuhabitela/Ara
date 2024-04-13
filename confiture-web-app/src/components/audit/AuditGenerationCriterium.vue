@@ -72,6 +72,7 @@ const notify = useNotifications();
 const showFileSizeError = ref(false);
 const showFileFormatError = ref(false);
 
+const showComments = ref(true);
 function handleUploadExample(file: File) {
   showFileSizeError.value = false;
   showFileFormatError.value = false;
@@ -286,59 +287,82 @@ const isOffline = useIsOffline();
             &nbsp;Partout
           </label>
         </div>
+
+        <div class="criterium-comments-toggler">
+          <button
+            :class="[
+              'fr-btn fr-icon-discuss-line',
+              { 'fr-btn--tertiary ': !showComments }
+            ]"
+            :disabled="
+              result.status === CriteriumResultStatus.NOT_TESTED || isOffline
+            "
+            title="Afficher les commentaires"
+            @click="() => (showComments = !showComments)"
+          >
+            Afficher les commentaires
+          </button>
+        </div>
+      </div>
+
+      <div
+        v-if="!!showComments"
+        :class="['criterium-comments-container fr-pl-4w']"
+      >
+        <!-- FIXME: left/right arrow bug -->
+        <!-- COMMENT / DESCRIPTION -->
+        <CriteriumCompliantAccordion
+          v-if="result.status === CriteriumResultStatus.COMPLIANT"
+          :id="`compliant-accordion-${uniqueId}`"
+          :comment="result.compliantComment"
+          @update:comment="updateResultComment($event, 'compliantComment')"
+        />
+
+        <CriteriumNotApplicableAccordion
+          v-else-if="result.status === CriteriumResultStatus.NOT_APPLICABLE"
+          :id="`not-applicable-accordion-${uniqueId}`"
+          :comment="result.notApplicableComment"
+          @update:comment="updateResultComment($event, 'notApplicableComment')"
+        />
+
+        <CriteriumNotApplicableAccordion
+          v-else-if="result.status === CriteriumResultStatus.TODO"
+          :id="`todo-accordion-${uniqueId}`"
+          :comment="result.todoComment"
+          @update:comment="updateResultComment($event, 'todoComment')"
+        />
+
+        <CriteriumNotCompliantAccordion
+          v-else-if="result.status === CriteriumResultStatus.NOT_COMPLIANT"
+          :id="`not-compliant-accordion-${uniqueId}`"
+          :comment="result.errorDescription"
+          :user-impact="result.userImpact"
+          :example-images="result.exampleImages"
+          :recommandation="result.recommandation"
+          :quick-win="result.quickWin"
+          :show-file-format-error="showFileFormatError"
+          :show-file-size-error="showFileSizeError"
+          @update:comment="updateResultComment($event, 'errorDescription')"
+          @update:user-impact="updateResultImpact($event)"
+          @upload-example="handleUploadExample"
+          @delete-example="handleDeleteExample"
+          @update:recommandation="updateResultComment($event, 'recommandation')"
+          @update:quick-win="updateQuickWin"
+        />
       </div>
     </div>
-    <!-- FIXME: left/right arrow bug -->
-    <!-- COMMENT / DESCRIPTION -->
-    <CriteriumCompliantAccordion
-      v-if="result.status === CriteriumResultStatus.COMPLIANT"
-      :id="`compliant-accordion-${uniqueId}`"
-      :comment="result.compliantComment"
-      @update:comment="updateResultComment($event, 'compliantComment')"
-    />
-
-    <CriteriumNotApplicableAccordion
-      v-else-if="result.status === CriteriumResultStatus.NOT_APPLICABLE"
-      :id="`not-applicable-accordion-${uniqueId}`"
-      :comment="result.notApplicableComment"
-      @update:comment="updateResultComment($event, 'notApplicableComment')"
-    />
-
-    <CriteriumNotCompliantAccordion
-      v-else-if="result.status === CriteriumResultStatus.NOT_COMPLIANT"
-      :id="`not-compliant-accordion-${uniqueId}`"
-      :comment="result.errorDescription"
-      :user-impact="result.userImpact"
-      :example-images="result.exampleImages"
-      :recommandation="result.recommandation"
-      :quick-win="result.quickWin"
-      :show-file-format-error="showFileFormatError"
-      :show-file-size-error="showFileSizeError"
-      @update:comment="updateResultComment($event, 'errorDescription')"
-      @update:user-impact="updateResultImpact($event)"
-      @upload-example="handleUploadExample"
-      @delete-example="handleDeleteExample"
-      @update:recommandation="updateResultComment($event, 'recommandation')"
-      @update:quick-win="updateQuickWin"
-    />
-
-    <!-- TESTS + METHODO -->
-    <CriteriumTestsAccordion
-      v-if="!filtersStore.hideTestsAndReferences"
-      :class="{
-        'fr-mt-2w': result.status === CriteriumResultStatus.NOT_TESTED
-      }"
-      :topic-number="topicNumber"
-      :criterium="criterium"
-    />
   </li>
 </template>
 
 <style scoped>
 .criterium-container {
   background: var(--background-alt-blue-france);
+  border-bottom: 1px solid var(--blue-france-850-200);
   border-radius: 0.25rem;
   list-style: none;
+  margin-left: -2rem;
+  margin-right: -2rem;
+}
 }
 
 .criterium-container::marker {
@@ -346,8 +370,8 @@ const isOffline = useIsOffline();
 }
 
 .criterium-row {
+  align-items: baseline;
   display: flex;
-  align-items: center;
 }
 
 .criterium-main-section {
@@ -356,19 +380,28 @@ const isOffline = useIsOffline();
   gap: 0.5rem;
 }
 
-.criterium-number,
 .criterium-title {
   color: var(--text-action-high-grey);
-  max-width: 80ch;
+  width: 70ch;
 }
 
-.criterium-radios-container {
+.criterium-status-container {
   max-width: 32rem;
-  margin-left: auto;
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: flex-end;
   flex-wrap: wrap;
   gap: 0 1rem;
+  flex-shrink: 0;
+}
+
+.criterium-comments-toggler,
+.criterium-tests-toggler {
+  position: relative;
+  top: 4px;
+}
+
+.criterium-comments-container {
+  flex-grow: 1;
 }
 </style>
