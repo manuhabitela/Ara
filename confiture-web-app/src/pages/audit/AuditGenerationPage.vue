@@ -262,7 +262,11 @@ const accountStore = useAccountStore();
           />
         </div>
       </div>
-      <div :class="`fr-col-12 fr-col-md-${showLeftPanel ? '9' : '11'}`">
+      <div
+        :class="`audit-page-wrapper fr-col-12 fr-col-md-${
+          showLeftPanel ? '9' : '11'
+        } ${showLeftPanel ? 'is-with-left-panel' : ''}`"
+      >
         <AraTabs :tabs="tabsData" @change="updateCurrentPageId">
           <template #panel="{ data }">
             <AuditGenerationPageCriteria

@@ -423,6 +423,10 @@ const isOffline = useIsOffline();
   width: 70ch;
 }
 
+.audit-page-wrapper.is-with-left-panel .criterium-title {
+  width: 60ch;
+}
+
 .criterium-status-container {
   max-width: 32rem;
   display: flex;
