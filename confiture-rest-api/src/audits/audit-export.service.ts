@@ -19,7 +19,8 @@ const CRITERIUM_STATUS: Record<CriterionResultStatus, string> = {
   COMPLIANT: "C",
   NOT_TESTED: "NT",
   NOT_APPLICABLE: "NA",
-  NOT_COMPLIANT: "NC"
+  NOT_COMPLIANT: "NC",
+  TODO: "AT"
 };
 
 @Injectable()

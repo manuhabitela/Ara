@@ -66,14 +66,16 @@ const FORMATTED_STATUS = {
   [CriteriumResultStatus.NOT_TESTED]: "Non testé",
   [CriteriumResultStatus.COMPLIANT]: "Conforme",
   [CriteriumResultStatus.NOT_COMPLIANT]: "Non conforme",
-  [CriteriumResultStatus.NOT_APPLICABLE]: "Non applicable"
+  [CriteriumResultStatus.NOT_APPLICABLE]: "Non applicable",
+  [CriteriumResultStatus.TODO]: "À traiter"
 };
 
 const SHORT_FORMATTED_STATUS = {
   [CriteriumResultStatus.NOT_TESTED]: "NT",
   [CriteriumResultStatus.COMPLIANT]: "C",
   [CriteriumResultStatus.NOT_COMPLIANT]: "NC",
-  [CriteriumResultStatus.NOT_APPLICABLE]: "NA"
+  [CriteriumResultStatus.NOT_APPLICABLE]: "NA",
+  [CriteriumResultStatus.TODO]: "AT"
 };
 
 /**
@@ -111,7 +113,11 @@ export function getAuditStatus(report: AuditReport): string {
   if (
     report.results.length !==
       getCriteriaCount(report.auditType) * report.pageDistributions.length ||
-    report?.results.some((r) => r.status === CriteriumResultStatus.NOT_TESTED)
+    report?.results.some(
+      (r) =>
+        r.status === CriteriumResultStatus.NOT_TESTED ||
+        r.status === CriteriumResultStatus.TODO
+    )
   ) {
     return AuditStatus.IN_PROGRESS;
   }

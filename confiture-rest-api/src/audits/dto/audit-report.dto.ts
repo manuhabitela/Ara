@@ -204,6 +204,7 @@ class ReportCriterionResult {
   recommandation: string | null;
 
   notApplicableComment: string | null;
+  todoComment: string | null;
 }
 
 class ExampleImage {

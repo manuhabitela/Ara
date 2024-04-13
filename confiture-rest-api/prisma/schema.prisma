@@ -130,6 +130,8 @@ model CriterionResult {
 
   notApplicableComment String?
 
+  todoComment String?
+
   topic     Int
   criterium Int
 
@@ -146,6 +148,7 @@ enum CriterionResultStatus {
   NOT_COMPLIANT
   NOT_APPLICABLE
   NOT_TESTED
+  TODO
 }
 
 enum CriterionResultUserImpact {

@@ -133,6 +133,13 @@ class UpdateResultsItem {
   @IsString()
   @IsOptional()
   notApplicableComment?: string;
+
+  /**
+   * @example "Officia aliquip aute ipsum in eiusmod ea et."
+   */
+  @IsString()
+  @IsOptional()
+  todoComment?: string;
 }
 
 export class UpdateResultsDto {

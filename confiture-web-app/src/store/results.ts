@@ -241,6 +241,10 @@ export const useResultsStore = defineStore("results", {
               if (update.status === CriteriumResultStatus.NOT_APPLICABLE) {
                 target.notApplicableComment = update.notApplicableComment;
               }
+
+              if (update.status === CriteriumResultStatus.TODO) {
+                target.todoComment = update.todoComment;
+              }
             });
         }
       });
@@ -451,6 +455,7 @@ export const useResultsStore = defineStore("results", {
           compliantComment: sample(["Commentaire conforme", "Rien"])!,
           errorDescription: sample(["Commentaire non conforme", "Rien"])!,
           notApplicableComment: sample(["Commentaire non-applicable", "Rien"])!,
+          todoComment: sample(["Commentaire à traiter", "Rien"])!,
           recommandation: sample(["Recommandation", "Rien"])!,
           userImpact: sample(CriterionResultUserImpact)!
           /* eslint-enable @typescript-eslint/no-non-null-assertion */

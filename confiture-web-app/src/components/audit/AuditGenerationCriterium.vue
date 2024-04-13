@@ -60,6 +60,11 @@ const statuses: Array<{
     label: formatStatus(CriteriumResultStatus.NOT_APPLICABLE, true),
     value: CriteriumResultStatus.NOT_APPLICABLE,
     color: "grey"
+  },
+  {
+    label: formatStatus(CriteriumResultStatus.TODO, true),
+    value: CriteriumResultStatus.TODO,
+    color: "yellow"
   }
 ];
 

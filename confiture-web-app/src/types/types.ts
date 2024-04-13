@@ -95,7 +95,8 @@ export enum CriteriumResultStatus {
   NOT_TESTED = "NOT_TESTED",
   COMPLIANT = "COMPLIANT",
   NOT_COMPLIANT = "NOT_COMPLIANT",
-  NOT_APPLICABLE = "NOT_APPLICABLE"
+  NOT_APPLICABLE = "NOT_APPLICABLE",
+  TODO = "TODO"
 }
 
 export enum CriterionResultUserImpact {
@@ -128,6 +129,7 @@ export interface CriteriumResult {
   userImpact: CriterionResultUserImpact | null;
   recommandation: string | null;
   notApplicableComment: string | null;
+  todoComment: string | null;
   exampleImages: ExampleImage[];
   quickWin: boolean;
 }

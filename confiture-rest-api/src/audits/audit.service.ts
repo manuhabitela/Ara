@@ -168,6 +168,7 @@ export class AuditService {
           userImpact: null,
           recommandation: null,
           notApplicableComment: null,
+          todoComment: null,
           exampleImages: [],
           transverse: false,
           quickWin: false,
@@ -379,6 +380,7 @@ export class AuditService {
           compliantComment: item.compliantComment,
           errorDescription: item.errorDescription,
           notApplicableComment: item.notApplicableComment,
+          todoComment: item.todoComment,
           recommandation: item.recommandation,
           userImpact: item.userImpact,
           quickWin: item.quickWin,
@@ -434,6 +436,10 @@ export class AuditService {
 
                 ...(item.status === CriterionResultStatus.NOT_APPLICABLE && {
                   notApplicableComment: item.notApplicableComment
+                }),
+
+                ...(item.status === CriterionResultStatus.TODO && {
+                  todoComment: item.todoComment
                 })
               };
 
@@ -916,6 +922,7 @@ export class AuditService {
         compliantComment: r.compliantComment,
         errorDescription: r.errorDescription,
         notApplicableComment: r.notApplicableComment,
+        todoComment: r.todoComment,
         recommandation: r.recommandation,
         userImpact: r.userImpact,
         quickWin: r.quickWin,
