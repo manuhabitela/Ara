@@ -42,6 +42,11 @@ const statuses: Array<{
   color?: ButtonColor;
 }> = [
   {
+    label: formatStatus(CriteriumResultStatus.NOT_TESTED, true),
+    value: CriteriumResultStatus.NOT_TESTED,
+    color: "transparent"
+  },
+  {
     label: formatStatus(CriteriumResultStatus.COMPLIANT, true),
     value: CriteriumResultStatus.COMPLIANT,
     color: "green"
