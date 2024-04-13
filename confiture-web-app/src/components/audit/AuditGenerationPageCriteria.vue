@@ -69,7 +69,6 @@ const noResults = computed(() => {
           :key="criterium.criterium.number"
           :even="i % 2 === 0"
           :page="page"
-          class="fr-mb-3w"
           :criterium="criterium.criterium"
           :topic-number="topic.number"
           :audit-unique-id="auditUniqueId"

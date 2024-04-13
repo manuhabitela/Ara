@@ -19,13 +19,13 @@ const isOffline = useIsOffline();
   <CriteriumSection>
     <!-- COMMENT -->
     <div class="fr-input-group fr-mb-1w">
-      <label class="fr-label sr-only" :for="`criterum-comment-field-${id}`">
+      <label class="fr-label" :for="`criterum-comment-field-${id}`">
         Commentaire
       </label>
       <textarea
         :id="`criterum-comment-field-${id}`"
         :value="comment ?? ''"
-        class="fr-mt-0 fr-input"
+        class="fr-input"
         rows="5"
         :disabled="isOffline"
         :aria-describedby="`markdown-notice-${id}`"

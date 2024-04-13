@@ -82,10 +82,7 @@ const isOffline = useIsOffline();
   <CriteriumSection>
     <!-- COMMENT -->
     <div class="fr-input-group fr-mb-1w">
-      <label
-        class="fr-label fr-text--bold"
-        :for="`criterum-comment-field-${id}`"
-      >
+      <label class="fr-label" :for="`criterum-comment-field-${id}`">
         Description de la ou des erreurs
       </label>
       <textarea
@@ -105,7 +102,7 @@ const isOffline = useIsOffline();
 
     <!-- FILE -->
     <div class="fr-mb-4w upload-wrapper">
-      <div :id="`file-upload-description-${id}`" class="fr-text--bold fr-label">
+      <div :id="`file-upload-description-${id}`" class="fr-label">
         Ajouter un exemple de l’erreur
         <span class="fr-mt-1v fr-text--regular fr-hint-text">
           Taille maximale par fichier : 2 Mo. Formats : jpg, png. Plusieurs
@@ -196,7 +193,7 @@ const isOffline = useIsOffline();
     <!-- RECOMMANDATION -->
     <div class="fr-input-group fr-mb-1w">
       <label
-        class="fr-label fr-text--bold"
+        class="fr-label"
         :for="`criterum-comment-field-recommendation-${id}`"
       >
         Recommandation de correction

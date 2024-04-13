@@ -276,7 +276,7 @@ const isOffline = useIsOffline();
           {{ topicNumber }}.{{ criterium.number }}
         </button>
         <div
-          class="fr-text--bold criterium-title"
+          class="criterium-title"
           v-html="marked.parseInline(criterium.title)"
         />
       </div>
