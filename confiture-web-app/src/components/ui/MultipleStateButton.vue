@@ -47,20 +47,14 @@ function handleChange() {
 
 <template>
   <button
-    :class="['fr-btn fr-btn--sm fr-btn--secondary', currentStatus?.color]"
-    @click="handleChange()"
     :id="`multiple-state-button-${uniqueId}`"
+    :class="['fr-btn fr-btn--sm fr-btn--secondary', currentStatus?.color]"
     :aria-describedby="`multiple-state-button-tooltip-${uniqueId}`"
+    :title="currentStatus?.tooltip"
+    @click="handleChange()"
   >
     {{ currentStatus?.label }}
   </button>
-  <span
-    class="fr-tooltip fr-placement"
-    :id="`multiple-state-tooltip-${uniqueId}`"
-    role="tooltip"
-    aria-hidden="true"
-    >{{ currentStatus?.tooltip }}</span
-  >
 </template>
 
 <style scoped>

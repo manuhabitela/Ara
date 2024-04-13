@@ -38,31 +38,37 @@ const props = defineProps<{
 
 const statuses: Array<{
   label: string;
+  tooltip: string;
   value: CriteriumResultStatus;
   color?: ButtonColor;
 }> = [
   {
     label: formatStatus(CriteriumResultStatus.NOT_TESTED, true),
+    tooltip: formatStatus(CriteriumResultStatus.NOT_TESTED),
     value: CriteriumResultStatus.NOT_TESTED,
     color: "transparent"
   },
   {
     label: formatStatus(CriteriumResultStatus.COMPLIANT, true),
+    tooltip: formatStatus(CriteriumResultStatus.COMPLIANT),
     value: CriteriumResultStatus.COMPLIANT,
     color: "green"
   },
   {
     label: formatStatus(CriteriumResultStatus.NOT_COMPLIANT, true),
+    tooltip: formatStatus(CriteriumResultStatus.NOT_COMPLIANT),
     value: CriteriumResultStatus.NOT_COMPLIANT,
     color: "red"
   },
   {
     label: formatStatus(CriteriumResultStatus.NOT_APPLICABLE, true),
+    tooltip: formatStatus(CriteriumResultStatus.NOT_APPLICABLE),
     value: CriteriumResultStatus.NOT_APPLICABLE,
     color: "grey"
   },
   {
     label: formatStatus(CriteriumResultStatus.TODO, true),
+    tooltip: formatStatus(CriteriumResultStatus.TODO),
     value: CriteriumResultStatus.TODO,
     color: "yellow"
   }
