@@ -33,6 +33,7 @@ const props = defineProps<{
   criterium: any;
   page: AuditPage;
   auditUniqueId: string;
+  even?: boolean;
 }>();
 
 const statuses: Array<{
@@ -256,7 +257,9 @@ const isOffline = useIsOffline();
 </script>
 
 <template>
-  <li class="fr-px-2w criterium-container">
+  <li
+    :class="['fr-px-2w fr-py-0 criterium-container', { 'is-even': props.even }]"
+  >
     <div class="criterium-row">
       <div class="fr-my-2v criterium-main-section">
         <button
@@ -388,6 +391,10 @@ const isOffline = useIsOffline();
   margin-left: -2rem;
   margin-right: -2rem;
 }
+
+.criterium-container.is-even {
+  /* background: var(--background-alt-blue-france); */
+  /* background: var(--background-alt-grey); */
 }
 
 .criterium-container::marker {

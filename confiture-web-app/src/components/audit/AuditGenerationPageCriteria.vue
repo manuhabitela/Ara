@@ -65,8 +65,9 @@ const noResults = computed(() => {
       </div>
       <ol class="fr-p-0 fr-m-0">
         <AuditGenerationCriterium
-          v-for="criterium in topic.criteria"
+          v-for="(criterium, i) in topic.criteria"
           :key="criterium.criterium.number"
+          :even="i % 2 === 0"
           :page="page"
           class="fr-mb-3w"
           :criterium="criterium.criterium"
