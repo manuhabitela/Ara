@@ -300,6 +300,7 @@ const isOffline = useIsOffline();
       <!-- STATUS -->
       <div :class="['fr-pl-4w fr-my-2v criterium-status-container']">
         <MultipleStateButton
+          class="criterium-status-button"
           :disabled="isOffline"
           :model-value="result.status"
           :label="`Statut du critère ${topicNumber}.${criterium.number}`"

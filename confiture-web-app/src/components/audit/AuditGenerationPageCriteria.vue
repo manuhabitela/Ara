@@ -41,6 +41,40 @@ const noResults = computed(() => {
     };
   }
 });
+
+function onCriteriaKey(event: KeyboardEvent) {
+  const target = <Element>event.target;
+  if (!target) {
+    return;
+  }
+  if (event.key !== "ArrowUp" && event.key !== "ArrowDown") {
+    return;
+  }
+  if (
+    !target.classList.contains("criterium-number") &&
+    !target.classList.contains("criterium-status-button")
+  ) {
+    return;
+  }
+  const parent = target.closest(".criterium-container");
+  if (!parent) {
+    return;
+  }
+  const destinationParent =
+    event.key === "ArrowUp"
+      ? parent.previousElementSibling
+      : parent.nextElementSibling;
+  if (!destinationParent) {
+    return;
+  }
+  destinationParent
+    .querySelector<HTMLButtonElement>(
+      target.classList.contains("criterium-number")
+        ? ".criterium-number"
+        : ".criterium-status-button"
+    )
+    ?.focus();
+}
 </script>
 
 <template>
@@ -63,7 +97,7 @@ const noResults = computed(() => {
         </h3>
         <NotApplicableSwitch :page-id="page.id" :topic-number="topic.number" />
       </div>
-      <ol class="fr-p-0 fr-m-0">
+      <ol class="fr-p-0 fr-m-0" @keyup="onCriteriaKey">
         <AuditGenerationCriterium
           v-for="(criterium, i) in topic.criteria"
           :key="criterium.criterium.number"

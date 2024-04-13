@@ -48,7 +48,11 @@ function handleChange() {
 <template>
   <button
     :id="`multiple-state-button-${uniqueId}`"
-    :class="['fr-btn fr-btn--sm fr-btn--secondary', currentStatus?.color]"
+    :class="[
+      $attrs.class,
+      'fr-btn fr-btn--sm fr-btn--secondary',
+      currentStatus?.color
+    ]"
     :aria-describedby="`multiple-state-button-tooltip-${uniqueId}`"
     :title="currentStatus?.tooltip"
     @click="handleChange()"
